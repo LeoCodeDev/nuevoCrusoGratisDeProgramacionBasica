@@ -188,7 +188,15 @@ function iniciarJuego(){
     seccionMensajes.style.display = 'none'
     seccionReiniciar.style.display = 'none'
     verMapa.style.display = 'none'
-  
+
+    unirseAlJuego()
+}
+
+function unirseAlJuego() {
+    fetch('http://172.22.245.118:8080/unirse')
+        .then(function (res) {
+            console.log(res)
+        })
 }
 
 function random(min,max){
