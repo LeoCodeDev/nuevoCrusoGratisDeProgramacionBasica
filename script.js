@@ -3,6 +3,7 @@ let mokeponesArr = [];
 let elementosMoke = [];
 let ataques = [];
 let ataquesEnemigo = [];
+let mokeEnemigosLive = []
 let ataqueJugador = '';
 let ataqueEnemigo = '';
 let vidasEnemigo;
@@ -12,6 +13,7 @@ let enemigo = '';
 let usoHealing = 3;
 let usoHealingE = 3;
 let jugadorId = null
+let enemigoId = null
 let hitJugador;
 let hitEnemigo;
 let contenedorMokepones;
@@ -68,7 +70,8 @@ mapa.width = anchoMapa
 mapa.height = altoProposional
 
 class Mokepon {
-    constructor(nombre,id,tipo,imagen,vida, avatar, x = 10, y = 10) {
+    constructor(nombre,id,tipo,imagen,vida, avatar, flag = null) {
+        this.flag = flag
         this.nombre = nombre;
         this.id = id;
         this.tipo = tipo;
@@ -113,15 +116,6 @@ let zalamanderObj = new Mokepon('Zalamander','zalamander','💧','./assets/zalam
 let langostelvisObj = new Mokepon('Langostelvis','langostelvis','🔥','./assets/langostelvis.png',120, './assets/langostelvis_head.png');
 let ratigueyaObj = new Mokepon('Ratigüeya','ratigueya','🔥','./assets/ratigueya.png',120, './assets/ratigueya_head.png');
 let flamixObj = new Mokepon('Flamix','flamix','🔥','./assets/flamix.png',120, './assets/flamix_head.png');
-let enemiCapipepoObj = new Mokepon('Capipepo','capipepo','🌱','./assets/capipepo.png',120, './assets/capipepo_head.png');
-let enemiTucapalmaObj = new Mokepon('Tucapalma','tucapalma','🌱','./assets/tucapalma.png',120, './assets/tucapalma_head.png');
-let enemiDragosaurioObj = new Mokepon('Dragosaurio','dragosaurio','🌱','./assets/dragosaurio.png',120, './assets/dragosaurio_head.png');
-let enemiHipodogeObj = new Mokepon('Hipodoge','hipodoge','💧','./assets/hipodoge.png',120, './assets/hipodoge_head.png');
-let enemiPydosObj = new Mokepon('Pydos','pydos','💧','./assets/pydos.png',120, './assets/pydos_head.png');
-let enemiZalamanderObj = new Mokepon('Zalamander','zalamander','💧','./assets/zalamander.png',120, './assets/zalamander_head.png');
-let enemiLangostelvisObj = new Mokepon('Langostelvis','langostelvis','🔥','./assets/langostelvis.png',120, './assets/langostelvis_head.png');
-let enemiRatigueyaObj = new Mokepon('Ratigüeya','ratigueya','🔥','./assets/ratigueya.png',120, './assets/ratigueya_head.png');
-let enemiFlamixObj = new Mokepon('Flamix','flamix','🔥','./assets/flamix.png',120, './assets/flamix_head.png');
 
 let infernalAtk = new Ataques ('Fuego Infernal','🔥','inferno',4);
 let llamaradaAtk = new Ataques ('Llamarada','🔥','llamarada',3);
@@ -148,15 +142,6 @@ zalamanderObj.ataques.push(ruedaAtk,tsunamiAtk,lluviaAtk,healingAtk);
 langostelvisObj.ataques.push(terremotoAtk,infernalAtk,vulcanoAtk,healingAtk);
 ratigueyaObj.ataques.push(ruedaAtk,luzBrillanteAtk,vulcanoAtk,healingAtk);
 flamixObj.ataques.push(infernalAtk,luzBrillanteAtk,llamaradaAtk,healingAtk);
-enemiCapipepoObj.ataques.push(lluviaAtk,pantanoAtk,raicesAtk,healingAtk);
-enemiTucapalmaObj.ataques.push(vulcanoAtk,penonazolAtk,terremotoAtk,healingAtk);
-enemiDragosaurioObj.ataques.push(terremotoAtk,pantanoAtk,raicesAtk,healingAtk);
-enemiHipodogeObj.ataques.push(luzBrillanteAtk,tsunamiAtk,ruedaAtk,healingAtk);
-enemiPydosObj.ataques.push(terremotoAtk,lluviaAtk,hydrojetAtk,healingAtk);
-enemiZalamanderObj.ataques.push(ruedaAtk,tsunamiAtk,lluviaAtk,healingAtk);
-enemiLangostelvisObj.ataques.push(terremotoAtk,infernalAtk,vulcanoAtk,healingAtk);
-enemiRatigueyaObj.ataques.push(ruedaAtk,luzBrillanteAtk,vulcanoAtk,healingAtk);
-enemiFlamixObj.ataques.push(infernalAtk,luzBrillanteAtk,llamaradaAtk,healingAtk);
 
 
 function iniciarJuego(){
@@ -227,6 +212,7 @@ function seleccionarMascotaJugador(){
             imgJugador.innerHTML = contenedorElegidoJugador;
             mascotaJugador.innerHTML = mokeponesArr[i].nombre;
             seleccionado = mokeponesArr[i];
+            seleccionado.flag = jugadorId
         }
     }
     if(seleccionado == ''){
@@ -338,27 +324,10 @@ function crearMapa(){
     seleccionado.pintarMoke()
 
     enviarPos(seleccionado.x, seleccionado.y)
-
-    enemiTucapalmaObj.pintarMoke()
-    enemiLangostelvisObj.pintarMoke()
-    enemiDragosaurioObj.pintarMoke()
-    enemiFlamixObj.pintarMoke()
-    enemiHipodogeObj.pintarMoke()
-    enemiCapipepoObj.pintarMoke()
-    enemiPydosObj.pintarMoke()
-    enemiZalamanderObj.pintarMoke()
-    enemiRatigueyaObj.pintarMoke()
-    if (seleccionado.velocidadX != 0 || seleccionado.velocidadY != 0) {
-        eventoColision(enemiTucapalmaObj)
-        eventoColision(enemiLangostelvisObj)
-        eventoColision(enemiDragosaurioObj)
-        eventoColision(enemiFlamixObj)
-        eventoColision(enemiHipodogeObj)
-        eventoColision(enemiCapipepoObj)
-        eventoColision(enemiPydosObj)
-        eventoColision(enemiZalamanderObj)
-        eventoColision(enemiRatigueyaObj)
-    }
+    mokeEnemigosLive.forEach((moke) => {
+        moke.pintarMoke()
+        eventoColision(moke)
+    })
 }
 
 function enviarPos(x, y){
@@ -375,8 +344,33 @@ function enviarPos(x, y){
     .then(function (res){
         if(res.ok){
             res.json()
-                .then(function ({ enemigos }){
-                    console.log(enemigos)
+            .then(function ({ enemigos }){
+                mokeEnemigosLive = enemigos.map((enemigo) => {
+                        let mokeEnemigo = null
+                        const enemigoNombre = enemigo.mokepon.nombre || ''
+                        if(enemigoNombre === 'Capipepo' ){
+                            mokeEnemigo = new Mokepon('Capipepo','capipepo','🌱','./assets/capipepo.png',120, './assets/capipepo_head.png', enemigo.flag);
+                        }else if (enemigoNombre === 'Dragosaurio') {
+                            mokeEnemigo = new Mokepon('Dragosaurio','dragosaurio','🌱','./assets/dragosaurio.png',120, './assets/dragosaurio_head.png', enemigo.flag);
+                        } else if (enemigoNombre === 'Hipodoge') {
+                            mokeEnemigo = new Mokepon('Hipodoge','hipodoge','💧','./assets/hipodoge.png',120, './assets/hipodoge_head.png', enemigo.flag);
+                        }else if (enemigoNombre === 'Pydos') {
+                            mokeEnemigo = new Mokepon('Pydos','pydos','💧','./assets/pydos.png',120, './assets/pydos_head.png', enemigo.flag);
+                        } else if (enemigoNombre === 'Zalamander') {
+                            mokeEnemigo = new Mokepon('Zalamander','zalamander','💧','./assets/zalamander.png',120, './assets/zalamander_head.png', enemigo.flag);
+                        } else if (enemigoNombre === 'Langostelvis') {
+                            mokeEnemigo = new Mokepon('Langostelvis','langostelvis','🔥','./assets/langostelvis.png',120, './assets/langostelvis_head.png', enemigo.flag);
+                        } else if (enemigoNombre === 'Ratigüeya') {
+                            mokeEnemigo = new Mokepon('Ratigüeya','ratigueya','🔥','./assets/ratigueya.png',120, './assets/ratigueya_head.png', enemigo.flag);
+                        } else if (enemigoNombre === 'Flamix') {
+                            mokeEnemigo = new Mokepon('Flamix','flamix','🔥','./assets/flamix.png',120, './assets/flamix_head.png', enemigo.flag);
+                        } else if (enemigoNombre === 'Tucapalma'){
+                            mokeEnemigo = new Mokepon('Tucapalma','tucapalma','🌱','./assets/tucapalma.png',120, './assets/tucapalma_head.png', enemigo.flag);
+                        }
+                        mokeEnemigo.x = enemigo.x
+                        mokeEnemigo.y = enemigo.y
+                        return mokeEnemigo
+                    })
                 })
         }
     })
@@ -423,6 +417,7 @@ function eventoColision(enemigo){
         }else{
             stop()
             seleccionarMascotasEnemigo(enemigo)
+            enemigoId = enemigo.flag;
             verMapa.style.display = 'none'
             seccionAtaque.style.display = 'grid'
             seccionMensajes.style.display = 'flex'
@@ -504,6 +499,19 @@ function atack(i){
         }
     }
     combate(ordenJugador.classList[0],ordenEnemigo.tipo,hitJugador,hitEnemigo)
+}
+
+function enviarAtk(jugadorId,p2Id,hit,elemento){
+    fetch(`/${jugadorId}/ataque`, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/jason'
+        },
+        body: JASON.stringify({
+            p1Id : jugadorId,
+            p2Id : en
+        })
+    })
 }
 
 function healing(vidastotales,vidasRestantes,valor){
