@@ -17,3 +17,25 @@
   },
   "homepage": "https://github.com/code-from-scratch1/nuevoCrusoGratisDeProgramacionBasica#readme"
 }
+{
+  "name": "mokepones",
+  "version": "1.0.0",
+  "description": "Juego de practica con javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code-from-scratch1/nuevoCrusoGratisDeProgramacionBasica.git"
+  },
+  "author": "Leopoldo Martinez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/code-from-scratch1/nuevoCrusoGratisDeProgramacionBasica/issues"
+  },
+  "homepage": "https://github.com/code-from-scratch1/nuevoCrusoGratisDeProgramacionBasica#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
