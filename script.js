@@ -11,6 +11,7 @@ let seleccionado = '';
 let enemigo = '';
 let usoHealing = 3;
 let usoHealingE = 3;
+let jugadorId = null
 let hitJugador;
 let hitEnemigo;
 let contenedorMokepones;
@@ -193,9 +194,15 @@ function iniciarJuego(){
 }
 
 function unirseAlJuego() {
-    fetch('http://172.22.245.118:8080/unirse')
+    fetch('http://localhost:8080/unirse')
         .then(function (res) {
-            console.log(res)
+            if (res.ok) {
+                res.text()
+                    .then(function (respuesta){
+                        console.log(respuesta)
+                        jugadorId = respuesta
+                    })
+            }
         })
 }
 
@@ -231,12 +238,25 @@ function seleccionarMascotaJugador(){
         iniciarMapa()
         seleccionado.x = anchoMapa - (anchoMapa * 0.3)
         seleccionado.y = altoProposional - (altoProposional * 0.7)
+        seleccionarMokepon(seleccionado)
     }
     vidasJugador = seleccionado.vida
     vidaMascotaJugador.innerHTML = vidasJugador;
     ataques = seleccionado.ataques
     ataquesEnemigo = enemigo.ataques
     botonesDeAtaque(ataques);
+}
+
+function seleccionarMokepon(moke){
+    fetch(`http://localhost:8080/mokepon/${jugadorId}`, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            moke: moke.nombre
+        })
+    })
 }
 
 function iniciarMapa(){
@@ -316,6 +336,9 @@ function crearMapa(){
     lienzo.clearRect(0,0, mapa.width, mapa.height)
     lienzo.drawImage(mapaBackground,0,0,mapa.width, mapa.height)
     seleccionado.pintarMoke()
+
+    enviarPos(seleccionado.x, seleccionado.y)
+
     enemiTucapalmaObj.pintarMoke()
     enemiLangostelvisObj.pintarMoke()
     enemiDragosaurioObj.pintarMoke()
@@ -336,6 +359,27 @@ function crearMapa(){
         eventoColision(enemiZalamanderObj)
         eventoColision(enemiRatigueyaObj)
     }
+}
+
+function enviarPos(x, y){
+    fetch(`http://localhost:8080/mokepon/${jugadorId}/posicion`,{
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            x,
+            y
+        })
+    })
+    .then(function (res){
+        if(res.ok){
+            res.json()
+                .then(function ({ enemigos }){
+                    console.log(enemigos)
+                })
+        }
+    })
 }
 
 function up(){
