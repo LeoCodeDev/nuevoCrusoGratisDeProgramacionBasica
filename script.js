@@ -248,7 +248,7 @@ function seleccionarMascotaJugador(){
 }
 
 function seleccionarMokepon(moke){
-    fetch(`http://localhost:8080/mokepon/${jugadorId}`, {
+    fetch(`http://localhost:8080/${jugadorId}`, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
@@ -362,7 +362,7 @@ function crearMapa(){
 }
 
 function enviarPos(x, y){
-    fetch(`http://localhost:8080/mokepon/${jugadorId}/posicion`,{
+    fetch(`http://localhost:8080/${jugadorId}/posicion`,{
         method: 'post',
         headers: {
             'Content-Type': 'application/json'

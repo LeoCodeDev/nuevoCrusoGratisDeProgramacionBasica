@@ -36,7 +36,7 @@ app.get('/unirse', (req,res) =>{
     res.send(id)
 })
 
-app.post('/mokepon/:jugadorId', (req,res) =>{
+app.post('/:jugadorId', (req,res) =>{
     const jugadorId = req.params.jugadorId || ''
     const nombre = req.body.moke || ''
     const mokepon = new Mokepon(nombre)
@@ -51,7 +51,7 @@ app.post('/mokepon/:jugadorId', (req,res) =>{
     res.end()
 })
 
-app.post(`/mokepon/:jugadorId/posicion`, (req,res) =>{
+app.post(`/:jugadorId/posicion`, (req,res) =>{
     const jugadorId = req.params.jugadorId || ''
     const x = req.body.x || 0
     const y = req.body.y || 0
