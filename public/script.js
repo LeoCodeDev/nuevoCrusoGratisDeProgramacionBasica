@@ -261,7 +261,7 @@ function iniciarJuego() {
 }
 
 function unirseAlJuego() {
-  fetch("http://localhost:8080/unirse").then(function (res) {
+  fetch("http://192.168.18.87:8080/unirse").then(function (res) {
     if (res.ok) {
       res.text().then(function (respuesta) {
         console.log(respuesta);
@@ -312,7 +312,7 @@ function seleccionarMascotaJugador() {
 }
 
 function seleccionarMokepon(moke) {
-  fetch(`http://localhost:8080/${jugadorId}`, {
+  fetch(`http://192.168.18.87:8080/${jugadorId}`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -330,7 +330,7 @@ function enviarId(
   tipoAtkJug,
   vidasJugador
 ) {
-  fetch(`http://localhost:8080/${jugadorId}/turno`, {
+  fetch(`http://192.168.18.87:8080/${jugadorId}/turno`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -436,7 +436,7 @@ function crearMapa() {
 }
 
 function enviarPos(x, y) {
-  fetch(`http://localhost:8080/${jugadorId}/posicion`, {
+  fetch(`http://192.168.18.87:8080/${jugadorId}/posicion`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -645,13 +645,14 @@ function turnoAtaques() {
 }
 
 function traerId() {
-  fetch(`http://localhost:8080/${enemigoId}/turno`).then(function (res) {
+  fetch(`http://192.168.18.87:8080/${enemigoId}/turno`).then(function (res) {
     if (res.ok) {
       res.json().then(function (respuesta) {
         hitEnemigo = respuesta.dmg;
         ataqueEnemigo = respuesta.ataque;
         tipoAtkEne = respuesta.tipo;
         vidasEnemigo = respuesta.vida;
+        vidaMascotaEnemigo.innerHTML = vidasEnemigo
         tipoAtaqueEnemigo.innerHTML = ataqueEnemigo;
         let jugadorHabilitado = respuesta.turno;
         console.log(respuesta.dmg);
