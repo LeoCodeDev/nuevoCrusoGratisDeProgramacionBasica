@@ -323,7 +323,13 @@ function seleccionarMokepon(moke) {
   });
 }
 
-function enviarId(enemigoId,ataqueJugador,hitJugador,tipoAtkJug,vidasJugador) {
+function enviarId(
+  enemigoId,
+  ataqueJugador,
+  hitJugador,
+  tipoAtkJug,
+  vidasJugador
+) {
   fetch(`http://localhost:8080/${jugadorId}/turno`, {
     method: "post",
     headers: {
@@ -334,7 +340,7 @@ function enviarId(enemigoId,ataqueJugador,hitJugador,tipoAtkJug,vidasJugador) {
       ataqueJugador,
       hitJugador,
       tipoAtkJug,
-      vidasJugador
+      vidasJugador,
     }),
   });
 }
@@ -588,7 +594,7 @@ function eventoColision(enemigo) {
     stop();
     enemigo = enemigo;
     enemigoId = enemigo.flag;
-    enviarId(enemigoId,'Esperando Ataque',null,null,vidasJugador);
+    enviarId(enemigoId, "Esperando Ataque", null, null, vidasJugador);
     seleccionarMascotasEnemigo(enemigo);
     verMapa.style.display = "none";
     seccionAtaque.style.display = "grid";
@@ -601,8 +607,8 @@ function eventoColision(enemigo) {
     lienzo.clearRect(0, 0, mapa.width, mapa.height);
     clearInterval(interval);
   }
-  seleccionado.y = (seleccionado.y * -1)
-  seleccionado.x = (seleccionado.x * -1)
+  seleccionado.y = seleccionado.y * -1;
+  seleccionado.x = seleccionado.x * -1;
   turnoAtaques();
 }
 
@@ -642,13 +648,13 @@ function traerId() {
   fetch(`http://localhost:8080/${enemigoId}/turno`).then(function (res) {
     if (res.ok) {
       res.json().then(function (respuesta) {
-        hitEnemigo = respuesta.dmg
-        ataqueEnemigo = respuesta.ataque
-        tipoAtkEne = respuesta.tipo
-        vidasEnemigo = respuesta.vida
-        tipoAtaqueEnemigo.innerHTML = ataqueEnemigo
+        hitEnemigo = respuesta.dmg;
+        ataqueEnemigo = respuesta.ataque;
+        tipoAtkEne = respuesta.tipo;
+        vidasEnemigo = respuesta.vida;
+        tipoAtaqueEnemigo.innerHTML = ataqueEnemigo;
         let jugadorHabilitado = respuesta.turno;
-        console.log(respuesta.dmg)
+        console.log(respuesta.dmg);
         if (jugadorHabilitado === jugadorId) {
           turnoTxt.innerHTML = "Tu Turno";
           clearInterval(interval);
@@ -712,14 +718,14 @@ function atack(i) {
     if (usoHealing <= 0) {
       ordenJugador.style.borderColor = "#00aab37c";
       ordenJugador.style.color = "#00aab37c";
-      ordenJugador.style.display = 'none';
+      ordenJugador.style.display = "none";
     }
   }
   let tipoAtkJug = ordenJugador.classList[0];
-  
-  enviarId(enemigoId,ataqueJugador,hitJugador,tipoAtkJug,vidasJugador);
-  
-  console.log(enemigoId,ataqueJugador,hitJugador,tipoAtkJug,vidasJugador)
+
+  enviarId(enemigoId, ataqueJugador, hitJugador, tipoAtkJug, vidasJugador);
+
+  console.log(enemigoId, ataqueJugador, hitJugador, tipoAtkJug, vidasJugador);
   combate(ordenJugador.classList[0], tipoAtkEne, hitJugador, hitEnemigo);
   turnoAtaques();
 }

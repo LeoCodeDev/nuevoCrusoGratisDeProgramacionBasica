@@ -25,8 +25,8 @@ class Jugador {
     this.ataque = ataque;
     this.dmg = dmg;
     this.tipo = tipo;
-    this.enemigoId = enemigoId
-    this.vida = vida
+    this.enemigoId = enemigoId;
+    this.vida = vida;
   }
 }
 
@@ -78,41 +78,41 @@ app.post(`/:jugadorId/posicion`, (req, res) => {
   });
 });
 
-app.post(`/:jugadorId/turno`,(req,res) =>{
-  const jugadorId = req.params.jugadorId
-  const ataque = req.body.ataqueJugador
-  const dmg = req.body.hitJugador
-  const tipo = req.body.tipoAtkJug
-  const vida = req.body.vidasJugador
-  const enemigoId = req.body.enemigoId
-  turno = enemigoId
+app.post(`/:jugadorId/turno`, (req, res) => {
+  const jugadorId = req.params.jugadorId;
+  const ataque = req.body.ataqueJugador;
+  const dmg = req.body.hitJugador;
+  const tipo = req.body.tipoAtkJug;
+  const vida = req.body.vidasJugador;
+  const enemigoId = req.body.enemigoId;
+  turno = enemigoId;
   const jugadorIndex = jugadores.findIndex(
     (jugador) => jugadorId === jugador.id
   );
 
   if (jugadorIndex >= 0) {
-    jugadores[jugadorIndex].atacar(ataque,dmg,tipo,enemigoId,vida);
+    jugadores[jugadorIndex].atacar(ataque, dmg, tipo, enemigoId, vida);
   }
 
-  console.log(jugadores[jugadorIndex])
-  res.end()
-})
+  console.log(jugadores[jugadorIndex]);
+  res.end();
+});
 
-app.get(`/:jugadorId/turno`,(req,res) =>{
-  const jugadorId = req.params.jugadorId
+app.get(`/:jugadorId/turno`, (req, res) => {
+  const jugadorId = req.params.jugadorId;
   const jugadorIndex = jugadores.findIndex(
     (jugador) => jugadorId === jugador.id
   );
-  const jugador = jugadores[jugadorIndex]
-  const dmg = jugador.dmg
-  const tipo = jugador.tipo
-  const ataque = jugador.ataque
-  const vida = jugador.vida
-  
+  const jugador = jugadores[jugadorIndex];
+  const dmg = jugador.dmg;
+  const tipo = jugador.tipo;
+  const ataque = jugador.ataque;
+  const vida = jugador.vida;
+
   const enemigoIndex = jugadores.findIndex(
     (enemigo) => jugador.enemigoId === enemigo.id
   );
-  const enemigo = jugadores[enemigoIndex]
+  const enemigo = jugadores[enemigoIndex];
 
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.json({
@@ -120,9 +120,9 @@ app.get(`/:jugadorId/turno`,(req,res) =>{
     dmg,
     tipo,
     ataque,
-    vida
+    vida,
   });
-})
+});
 
 app.listen(8080, () => {
   console.log("servidor funcionando");
