@@ -56,7 +56,6 @@ app.post("/:jugadorId", (req, res) => {
   if (jugadorIndex >= 0) {
     jugadores[jugadorIndex].asingnarMoke(mokepon);
   }
-  console.log(jugadores);
   res.end();
 });
 
@@ -95,7 +94,6 @@ app.post(`/:jugadorId/turno`, (req, res) => {
     jugadores[jugadorIndex].atacar(ataque, dmg, tipo, enemigoId, vida);
   }
 
-  console.log(jugadores[jugadorIndex]);
   res.end();
 });
 

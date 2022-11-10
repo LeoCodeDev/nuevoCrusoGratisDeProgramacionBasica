@@ -264,7 +264,6 @@ function unirseAlJuego() {
   fetch("http://192.168.18.87:8080/unirse").then(function (res) {
     if (res.ok) {
       res.text().then(function (respuesta) {
-        console.log(respuesta);
         jugadorId = respuesta;
       });
     }
@@ -655,7 +654,6 @@ function traerId() {
         vidaMascotaEnemigo.innerHTML = vidasEnemigo
         tipoAtaqueEnemigo.innerHTML = ataqueEnemigo;
         let jugadorHabilitado = respuesta.turno;
-        console.log(respuesta.dmg);
         if (jugadorHabilitado === jugadorId) {
           turnoTxt.innerHTML = "Tu Turno";
           clearInterval(interval);
@@ -663,7 +661,6 @@ function traerId() {
             boton.disabled = false;
             return;
           });
-          console.log(`turno de ${seleccionado.nombre}`);
         } else if (jugadorHabilitado === enemigoId) {
           turnoTxt.innerHTML = "Turno del Enemigo";
           botones.forEach((boton) => {
@@ -726,7 +723,6 @@ function atack(i) {
 
   enviarId(enemigoId, ataqueJugador, hitJugador, tipoAtkJug, vidasJugador);
 
-  console.log(enemigoId, ataqueJugador, hitJugador, tipoAtkJug, vidasJugador);
   combate(ordenJugador.classList[0], tipoAtkEne, hitJugador, hitEnemigo);
   turnoAtaques();
 }
